@@ -1,2 +1,2 @@
 # Hangman
-Python Command-Line Hangman Game
+Python Command-Line Interface Hangman Game
