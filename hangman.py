@@ -6,27 +6,27 @@ def get_word():
     return word.upper()
 
 def play(word):
-    word_complete = "_ " * len(word)
+    word_complete = "_" * len(word)
     right = False
     guessed_letters = []
     guessed_words = []
     tries = 6
     print("Let's play Hangman!")
     print(display(tries))
-    print(word_complete)
-    print("\n")
+    print("Tries left:", tries)
+    print(len(word), word_complete)
+    print()
     while not right and tries > 0:
         guess = input("Please guess a letter or word: ").upper()
         if len(guess) == 1 and guess.isalpha():
             if guess in guessed_letters:
                 print("ALREADY GUESSED LETTER!", guess)
             elif guess not in word:
-                print(guess, "IS NOT IN THE WORD!")
+                print("OOPS " + guess + " IS NOT IN THE WORD!")
                 tries -= 1
                 guessed_letters.append(guess)
             else:
-                print("NICE")
-                print(guess, "in the word!")
+                print("NICE " + guess + " in the word!")
                 guessed_letters.append(guess)
                 word_as_list = list(word_complete)
                 indices = [i for i, letter in enumerate(word) if letter == guess]
@@ -35,7 +35,7 @@ def play(word):
                 word_complete = "".join(word_as_list)
             if "_" not in word_complete:
                 right = True
-        elif len(guess) == len(word) and guess.isalnum():
+        elif len(guess) == len(word) and guess.isalpha():
             if guess in guessed_words:
                 print("ALREADY GUESSED WORD!", guess)
             elif guess != word:
@@ -48,8 +48,9 @@ def play(word):
         else:
             print("NOT A VALID GUESS!")
         print(display(tries))
+        print("Tries left:", tries)
         print(word_complete)
-        print("\n")
+        print()
     if right:
         print("!!!!!CONGRATS!!!!!")
         print("You have guessed the word!")
@@ -61,80 +62,80 @@ def display(tries):
     stages = [
         # final stage: head, body, both arms, both legs
         """
-            ------------
-            |      |
-            |      O
-            |     \\|/
-            |      |
-            |     / \\
-            |
-            ------------
+        ------------
+        |      |
+        |      O
+        |     \\|/
+        |      |
+        |     / \\
+        |
+        ------------
         """,
         # head, body, both arms, one leg
         """
-            ------------
-            |      |
-            |      O
-            |     \\|/
-            |      |
-            |     / 
-            |
-            ------------
+        ------------
+        |      |
+        |      O
+        |     \\|/
+        |      |
+        |     / 
+        |
+        ------------
         """,
         # head, body, both arms
         """
-            ------------
-            |      |
-            |      O
-            |     \\|/
-            |      |
-            |     
-            |
-            ------------
+        ------------
+        |      |
+        |      O
+        |     \\|/
+        |      |
+        |     
+        |
+        ------------
         """,
         # head, body, one arm
         """
-            ------------
-            |      |
-            |      O
-            |     \\|
-            |      |
-            |     
-            |
-            ------------
+        ------------
+        |      |
+        |      O
+        |     \\|
+        |      |
+        |     
+        |
+        ------------
         """,
         # head, body
         """
-            ------------
-            |      |
-            |      O
-            |      |
-            |      |
-            |     
-            |
-            ------------
+        ------------
+        |      |
+        |      O
+        |      |
+        |      |
+        |     
+        |
+        ------------
         """,
         # head
         """
-            ------------
-            |      |
-            |      O
-            |     
-            |      
-            |     
-            |
-            ------------
+        ------------
+        |      |
+        |      O
+        |     
+        |      
+        |     
+        |
+        ------------
         """,
         # empty
         """
-            ------------
-            |      |
-            |      
-            |     
-            |      
-            |     
-            |
-            ------------
+        ------------
+        |      |
+        |      
+        |     
+        |      
+        |     
+        |
+        ------------
         """
     ]
     return stages[tries]
